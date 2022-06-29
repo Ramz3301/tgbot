@@ -7,7 +7,8 @@ public class Main {
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
 //            botsApi.registerBot(new MyAmazingBot());
-            botsApi.registerBot(new PhotoBot());
+//            botsApi.registerBot(new PhotoBot());
+            botsApi.registerBot(new DocumentBot());
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
