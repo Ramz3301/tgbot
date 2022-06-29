@@ -25,7 +25,9 @@ public class DocumentBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             SendDocument document = new SendDocument();
-            document.setChatId("-1001579511149L");
+//            document.setChatId("-1001579511149L");
+            document.setChatId("880825037");
+//            document.setChatId();
 
             /**
              * Create file and write into this something

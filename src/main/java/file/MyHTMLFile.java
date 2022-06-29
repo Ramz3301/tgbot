@@ -13,8 +13,8 @@ public class MyHTMLFile {
      */
     public File createHTMLFile() {
         File file = new File("/home/ramz/Documents/demo.html");
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
-            file.createNewFile();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+//            file.createNewFile();
             writer.write("<img style=\"width:250px;height:100px; display:block; margin:0 auto;" +
                     "\" src=\"/home/ramz/Documents/team-blue.jpg\"/>");
             writer.write("<h1 style=\"text-align:center;te\">Report on " + LocalDateTime.now()
