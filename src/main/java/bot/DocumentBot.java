@@ -13,31 +13,28 @@ public class DocumentBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "time_aston_bot";
+        return "TrackingReportsBot";
     }
 
     @Override
     public String getBotToken() {
-        return "5267404223:AAHsDpkVo5_USHywawH8NPMQsHqwxntDAmk";
+//        return "5267404223:AAHsDpkVo5_USHywawH8NPMQsHqwxntDAmk";
+        return "5459953599:AAGzJmz5IZEaNcTAADcSxY3fhDy0PQwk74c";
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             SendDocument document = new SendDocument();
-//            document.setChatId("-1001579511149L");
-            document.setChatId("880825037");
-//            document.setChatId();
+            document.setChatId("-1001579511149L");
+//            document.setChatId("880825037");
 
-            /**
-             * Create file and write into this something
-             */
             MyHTMLFile fileHtml = new MyHTMLFile();
             File file = fileHtml.createHTMLFile();
 
             document.setDocument(new InputFile(file));
             try {
-                execute(document); // Call method to send the message
+                execute(document);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
