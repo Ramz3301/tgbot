@@ -30,7 +30,7 @@ public class ConnectDemo {
     }
 
     public ReportDTO getReport()  {
-        String responseBody = null;
+        String responseBody;
         try {
             responseBody = httpGetRequest();
         } catch (Exception e) {
@@ -39,7 +39,6 @@ public class ConnectDemo {
 
         Gson gson = new Gson();
         ReportDTO reportDTO = gson.fromJson(responseBody, ReportDTO.class);
-        System.out.println(reportDTO);
         return reportDTO;
     }
 

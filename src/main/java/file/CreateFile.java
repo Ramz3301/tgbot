@@ -5,7 +5,7 @@ import java.io.File;
 public interface CreateFile {
 
     /**
-     * Create file and write into this something
+     * Create file
      */
     File createFile();
 }

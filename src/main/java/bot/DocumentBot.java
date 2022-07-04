@@ -13,7 +13,7 @@ public class DocumentBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "TrackingReportsBot";
+        return "TrackingBot";
     }
 
     @Override
@@ -24,11 +24,11 @@ public class DocumentBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            SendDocument document = new SendDocument();
-            document.setChatId("-1001579511149L");
-
             MyHTMLFile fileHtml = new MyHTMLFile();
             File file = fileHtml.createFile();
+
+            SendDocument document = new SendDocument();
+            document.setChatId(String.valueOf(update.getMessage().getChatId()));
 
             document.setDocument(new InputFile(file));
             try {

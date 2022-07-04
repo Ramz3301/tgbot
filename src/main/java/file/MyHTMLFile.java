@@ -3,6 +3,7 @@ package file;
 import connect.ConnectDemo;
 import dto.ReportDTO;
 import dto.TaskDTO;
+import dto.TeamReportDTO;
 import dto.UserReportDTO;
 
 import java.io.BufferedWriter;
@@ -16,25 +17,26 @@ import java.util.List;
 
 public class MyHTMLFile implements CreateFile {
 
-    private UserReportDTO user = new UserReportDTO();
-    private TaskDTO taskDTO = new TaskDTO();
-    private ConnectDemo connectDemo = new ConnectDemo();
-
-//    ReportDTO reportDTO = new
-
+    private List<UserReportDTO> user;
+    private List<TaskDTO> taskDTO;
+    private ReportDTO reportDTO;
+    private List<TeamReportDTO> reports;
+    private ArrayList<String> teamNames;
 
     @Override
     public File createFile() {
-        ReportDTO report = connectDemo.getReport();
-        user.setFullName(report.getTeamReports().get(0).getUserReports().get(0).getFullName());
+        teamNames = new ArrayList<>();
+        ConnectDemo connectDemo = new ConnectDemo();
+        reportDTO = connectDemo.getReport();
+        reports = reportDTO.getTeamReports();
 
-        taskDTO.setDescription(report.getTeamReports().get(0).getUserReports().get(0).getTasks().get(0).getDescription());
-        taskDTO.setTimeInMinutes(report.getTeamReports().get(0).getUserReports().get(0).getTasks().get(0).getTimeInMinutes());
-//        user.setLastName();
-        List<TaskDTO> tasks = new ArrayList<>();
-        tasks.add(taskDTO);
 
-        user.setTasks(tasks);
+        for (int i = 0; i < reports.size(); i++) {
+            teamNames.add(reportDTO.getTeamReports().get(i).getTeamName());
+//            teamName.add(reports.get(i));
+
+        }
+
 
         File file = new File("/home/ramz/Documents/demo.html");
         writeIntoFile(file);
@@ -49,18 +51,23 @@ public class MyHTMLFile implements CreateFile {
             writer.write("<h1 style=\"text-align:center;te\">Report on " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "</h1>");
 
-            writer.write("<table style=\"text-align:center; margin:0 auto; \">\n" +
-                    "  <tr>\n" +
-                    "  \t<th>Name</th>\n" +
-                    "  \t<th>Activity</th>\n" +
-                    "  \t<th>Time</th>\n" +
-                    "\t</tr>\n" +
-                    "    <tr>\n" +
-                    "\t<td>" + user.getFullName() + "</td>\n" +
-                    "    <td> " + user.getTasks().get(0).getDescription() + "</td>\n" +
-                    "    <td> " + taskDTO.getTimeInMinutes() + "</td>\n" +
-                    "    </tr>\n" +
-                    "</table>");
+
+
+//            writer.write("<table style=\"text-align:center; margin:0 auto; \">\n" +
+//                    "  <tr>\n" +
+//                    "  \t<th>Name</th>\n" +
+//                    "  \t<th>Activity</th>\n" +
+//                    "  \t<th>Time</th>\n" +
+//                    "  \t<th>Team Name</th>\n" +
+//                    "\t</tr>\n" +
+//                    "    <tr>\n" +
+//                    "\t<td>" + teamName + "</td>\n" +
+//                    "    </tr>\n" +
+//                    "</table>");
+
+            for (int i = 0; i < teamNames.size(); i++) {
+                writer.write(teamNames.get(i) + " ");
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
