@@ -18,7 +18,6 @@ public class DocumentBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-//        return "5267404223:AAHsDpkVo5_USHywawH8NPMQsHqwxntDAmk";
         return "5459953599:AAGzJmz5IZEaNcTAADcSxY3fhDy0PQwk74c";
     }
 
@@ -27,10 +26,9 @@ public class DocumentBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             SendDocument document = new SendDocument();
             document.setChatId("-1001579511149L");
-//            document.setChatId("880825037");
 
             MyHTMLFile fileHtml = new MyHTMLFile();
-            File file = fileHtml.createHTMLFile();
+            File file = fileHtml.createFile();
 
             document.setDocument(new InputFile(file));
             try {

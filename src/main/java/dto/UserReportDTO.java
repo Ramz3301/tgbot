@@ -1,18 +1,11 @@
 package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class UserReportDTO {
-    private String name;
-    private String lastName;
+    private String fullName;
     private List<TaskDTO> tasks;
 }

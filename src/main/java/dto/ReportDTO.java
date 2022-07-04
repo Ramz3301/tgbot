@@ -1,18 +1,12 @@
 package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class ReportDTO {
     private LocalDate date;
-    List<TeamReportDTO> teamReports;
+    private List<TeamReportDTO> teamReports;
 }

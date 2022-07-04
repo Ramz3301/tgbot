@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.generics.BotSession;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class Main {
+
     public static void main(String[] args) {
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
@@ -13,5 +14,8 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+
+
     }
+
 }
