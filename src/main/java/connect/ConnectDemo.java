@@ -16,7 +16,7 @@ public class ConnectDemo {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
-                .uri(URI.create("https://644c-84-18-97-112.eu.ngrok.io/accountant/reports"))
+                .uri(URI.create("https://4c8f-5-101-22-143.eu.ngrok.io/accountant/reports"))
                 .headers("Accept-Enconding", "gzip, deflate")
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -29,7 +29,7 @@ public class ConnectDemo {
         return responseBody;
     }
 
-    public ReportDTO getReport()  {
+    public ReportDTO getReportDTO() {
         String responseBody;
         try {
             responseBody = httpGetRequest();

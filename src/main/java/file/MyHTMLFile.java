@@ -2,9 +2,7 @@ package file;
 
 import connect.ConnectDemo;
 import dto.ReportDTO;
-import dto.TaskDTO;
 import dto.TeamReportDTO;
-import dto.UserReportDTO;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,23 +15,39 @@ import java.util.List;
 
 public class MyHTMLFile implements CreateFile {
 
-    private List<UserReportDTO> user;
-    private List<TaskDTO> taskDTO;
+    //    private List<UserReportDTO> users;
+    private List<String> usersName;
+    //    private List<TaskDTO> taskDTO;
+    private List<String> tasks;
+    private List<Integer> minutes;
     private ReportDTO reportDTO;
-    private List<TeamReportDTO> reports;
+    private List<TeamReportDTO> teams;
     private ArrayList<String> teamNames;
+//    private ArrayList<String> ;
+    private ArrayList<String> greenTeam;
+    private ArrayList<String> blueTeam;
 
     @Override
     public File createFile() {
+        minutes = new ArrayList<>();
+        usersName = new ArrayList<>();
         teamNames = new ArrayList<>();
+        tasks = new ArrayList<>();
+        greenTeam = new ArrayList<>();
+        blueTeam = new ArrayList<>();
+
         ConnectDemo connectDemo = new ConnectDemo();
-        reportDTO = connectDemo.getReport();
-        reports = reportDTO.getTeamReports();
+        reportDTO = connectDemo.getReportDTO();
 
+        teams = reportDTO.getTeamReports();
 
-        for (int i = 0; i < reports.size(); i++) {
+        for (int i = 0; i < teams.size(); i++) {
             teamNames.add(reportDTO.getTeamReports().get(i).getTeamName());
-//            teamName.add(reports.get(i));
+//            teams.get(i).getUserReports()
+
+            for (int j = 0; j < teamNames.size(); j++) {
+
+            }
 
         }
 
@@ -51,8 +65,6 @@ public class MyHTMLFile implements CreateFile {
             writer.write("<h1 style=\"text-align:center;te\">Report on " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "</h1>");
 
-
-
 //            writer.write("<table style=\"text-align:center; margin:0 auto; \">\n" +
 //                    "  <tr>\n" +
 //                    "  \t<th>Name</th>\n" +
@@ -65,9 +77,34 @@ public class MyHTMLFile implements CreateFile {
 //                    "    </tr>\n" +
 //                    "</table>");
 
+
+            writer.write("Teams: " );
             for (int i = 0; i < teamNames.size(); i++) {
                 writer.write(teamNames.get(i) + " ");
             }
+            writer.write("<br>");
+
+            writer.write("Names: ");
+            for (int i = 0; i < usersName.size(); i++) {
+                writer.write(usersName.get(i) + " ");
+            }
+            writer.write("<br>");
+
+//            writer.write("Tasks: ");
+//            for (int i = 0; i < tasks.size(); i++) {
+//                writer.write(tasks.get(i) + " ");
+//            }
+//            writer.write("<br>");
+
+//            writer.write("Minutes: ");
+//            for (int i = 0; i < minutes.size(); i++) {
+//                writer.write(minutes.get(i) + " ");
+//            }
+//            writer.write("<br>");
+
+//            for (int i = 0; i < reports.size(); i++) {
+//                writer.write(teamNames.get(i) + " ");
+//            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);

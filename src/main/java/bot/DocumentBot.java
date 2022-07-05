@@ -18,7 +18,8 @@ public class DocumentBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "5459953599:AAGzJmz5IZEaNcTAADcSxY3fhDy0PQwk74c";
+//        return "5459953599:AAGzJmz5IZEaNcTAADcSxY3fhDy0PQwk74c";
+        return "5267404223:AAHsDpkVo5_USHywawH8NPMQsHqwxntDAmk";
     }
 
     @Override
