@@ -2,7 +2,9 @@ package file;
 
 import connect.ConnectDemo;
 import dto.ReportDTO;
+import dto.TaskDTO;
 import dto.TeamReportDTO;
+import dto.UserReportDTO;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,12 +25,13 @@ public class MyHTMLFile implements CreateFile {
     private ReportDTO reportDTO;
     private List<TeamReportDTO> teams;
     private ArrayList<String> teamNames;
-//    private ArrayList<String> ;
+    private ArrayList<String> descriptions;
     private ArrayList<String> greenTeam;
     private ArrayList<String> blueTeam;
 
     @Override
     public File createFile() {
+        descriptions = new ArrayList<>();
         minutes = new ArrayList<>();
         usersName = new ArrayList<>();
         teamNames = new ArrayList<>();
@@ -42,10 +45,17 @@ public class MyHTMLFile implements CreateFile {
         teams = reportDTO.getTeamReports();
 
         for (int i = 0; i < teams.size(); i++) {
-            teamNames.add(reportDTO.getTeamReports().get(i).getTeamName());
-//            teams.get(i).getUserReports()
+            teamNames.add(reportDTO.getTeamReports().get(i).getTeamName()); // team names
+            List<UserReportDTO> users = teams.get(i).getUserReports();// users for 1 team
 
-            for (int j = 0; j < teamNames.size(); j++) {
+            for (int j = 0; j < users.size(); j++) {
+                usersName.add(users.get(j).getFullName()); // add users name
+
+                List<TaskDTO> taskDTOList = users.get(j).getTasks(); // tasks for 1 person
+
+                for (int k = 0; k < taskDTOList.size(); k++) {
+                    descriptions.add(taskDTOList.get(k).getDescription());
+                }
 
             }
 
@@ -90,11 +100,11 @@ public class MyHTMLFile implements CreateFile {
             }
             writer.write("<br>");
 
-//            writer.write("Tasks: ");
-//            for (int i = 0; i < tasks.size(); i++) {
-//                writer.write(tasks.get(i) + " ");
-//            }
-//            writer.write("<br>");
+            writer.write("Tasks: ");
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.write(tasks.get(i) + " ");
+            }
+            writer.write("<br>");
 
 //            writer.write("Minutes: ");
 //            for (int i = 0; i < minutes.size(); i++) {
