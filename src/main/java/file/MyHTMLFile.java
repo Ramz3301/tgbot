@@ -46,19 +46,20 @@ public class MyHTMLFile implements CreateFile {
 
         for (int i = 0; i < teams.size(); i++) {
             teamNames.add(reportDTO.getTeamReports().get(i).getTeamName()); // team names
-            List<UserReportDTO> users = teams.get(i).getUserReports();// users for 1 team
+            List<UserReportDTO> usersOnTeam = teams.get(i).getUserReports();// usersOnTeam for 1 team
 
-            for (int j = 0; j < users.size(); j++) {
-                usersName.add(users.get(j).getFullName()); // add users name
+            for (int j = 0; j < usersOnTeam.size(); j++) {
+                usersName.add(usersOnTeam.get(j).getFullName()); // add usersOnTeam name
 
-                List<TaskDTO> taskDTOList = users.get(j).getTasks(); // tasks for 1 person
+                List<TaskDTO> userTasks = usersOnTeam.get(j).getTasks(); // tasks for 1 person
 
-                for (int k = 0; k < taskDTOList.size(); k++) {
-                    descriptions.add(taskDTOList.get(k).getDescription());
+                for (int k = 0; k < userTasks.size(); k++) {
+                    String description = userTasks.get(k).getDescription();
+                    descriptions.add(description);
+                    int timeInMinutes = userTasks.get(k).getTimeInMinutes();
+                    minutes.add(timeInMinutes);
                 }
-
             }
-
         }
 
 
@@ -75,46 +76,40 @@ public class MyHTMLFile implements CreateFile {
             writer.write("<h1 style=\"text-align:center;te\">Report on " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "</h1>");
 
-//            writer.write("<table style=\"text-align:center; margin:0 auto; \">\n" +
-//                    "  <tr>\n" +
-//                    "  \t<th>Name</th>\n" +
-//                    "  \t<th>Activity</th>\n" +
-//                    "  \t<th>Time</th>\n" +
-//                    "  \t<th>Team Name</th>\n" +
-//                    "\t</tr>\n" +
-//                    "    <tr>\n" +
-//                    "\t<td>" + teamName + "</td>\n" +
-//                    "    </tr>\n" +
-//                    "</table>");
 
+            reportDTO.getTeamReports().forEach(tr -> {
+                try {
+                    writer.write("<b>" + tr.getTeamName() + "</b>" + "<br>");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-            writer.write("Teams: " );
-            for (int i = 0; i < teamNames.size(); i++) {
-                writer.write(teamNames.get(i) + " ");
-            }
-            writer.write("<br>");
+                tr.getUserReports().forEach(ur -> {
+                    try {
+                        writer.write(ur.getFullName() + " ");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
-            writer.write("Names: ");
-            for (int i = 0; i < usersName.size(); i++) {
-                writer.write(usersName.get(i) + " ");
-            }
-            writer.write("<br>");
-
-            writer.write("Tasks: ");
-            for (int i = 0; i < tasks.size(); i++) {
-                writer.write(tasks.get(i) + " ");
-            }
-            writer.write("<br>");
-
-//            writer.write("Minutes: ");
-//            for (int i = 0; i < minutes.size(); i++) {
-//                writer.write(minutes.get(i) + " ");
-//            }
-//            writer.write("<br>");
-
-//            for (int i = 0; i < reports.size(); i++) {
-//                writer.write(teamNames.get(i) + " ");
-//            }
+                    try {
+                        writer.write("<br>");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ur.getTasks().forEach(t -> {
+                        try {
+                            writer.write(t.getDescription() + " ");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            writer.write(t.getTimeInMinutes() + "<br>");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                });
+            });
 
         } catch (IOException e) {
             throw new RuntimeException(e);
