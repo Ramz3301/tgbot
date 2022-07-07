@@ -5,14 +5,13 @@ import dto.ReportDTO;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ConnectDemo {
 
-    public static String httpGetRequest() throws URISyntaxException, IOException, InterruptedException {
+    private static String httpGetRequest() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
