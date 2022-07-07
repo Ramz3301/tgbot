@@ -29,29 +29,11 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-databind</artifactId>-->
-<!--            <version>2.13.3</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.9.0</version>
         </dependency>
-
-
-<!--        <dependency>-->
-<!--            <groupId>com.itextpdf</groupId>-->
-<!--            <artifactId>itextpdf</artifactId>-->
-<!--            <version>5.5.13.2</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.pdfbox</groupId>-->
-<!--            <artifactId>pdfbox</artifactId>-->
-<!--            <version>2.0.24</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -64,6 +46,25 @@
             <artifactId>layout</artifactId>
             <version>7.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -75,11 +76,10 @@
                 <version>2.3.2</version>
                 <configuration>
                     <wsdlUrls>
-                        <wsdlUrl>http://localhost:8888/ws/country?wsdl</wsdlUrl>
-                        <wsdlUrl>http://localhost:8888/ws/country?wsdl</wsdlUrl>
+                        <wsdlUrl>https://df51-176-32-190-26.eu.ngrok.io/?wsdl</wsdlUrl>
                     </wsdlUrls>
                     <keep>true</keep>
-                    <packageName>ru.gretchen.accountant.soap</packageName>
+                    <packageName>soap</packageName>
                     <sourceDestDir>src/main/java</sourceDestDir>
                 </configuration>
             </plugin>

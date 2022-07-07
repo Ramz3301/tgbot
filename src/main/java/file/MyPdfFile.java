@@ -14,26 +14,27 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import connect.ConnectDemo;
 import dto.ReportDTO;
+import dto.TeamReportDTO;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class MyPdfFile {
 
     private ReportDTO reportDTO;
 
-    public static void main(String[] args) {
-        MyPdfFile myPdfFile = new MyPdfFile();
-        myPdfFile.createPdf();
-    }
+//    public static void main(String[] args) {
+//        MyPdfFile myPdfFile = new MyPdfFile();
+//        myPdfFile.createPdf();
+//    }
 
-    public void createPdf() {
-
+    public Document createPdf() {
         ConnectDemo connect = new ConnectDemo();
         reportDTO = connect.getReportDTO();
 
-        String path = "/home/ramz/Documents/demoTable.pdf";
+        String path = "/home/ramz/Documents/report.pdf";
         PdfWriter pdfWriter = null;
         try {
             pdfWriter = new PdfWriter(path);
@@ -47,10 +48,7 @@ public class MyPdfFile {
         float col = 280f;
         float[] columnWidth = {col, col};
         Table table = new Table(columnWidth);
-
-
         table.setBackgroundColor(new DeviceRgb(63, 169, 219)).setFontColor(Color.WHITE);
-
 
         // add header
         table.addCell(new Cell().add("Report on " + LocalDate.now()
@@ -63,53 +61,41 @@ public class MyPdfFile {
                 .setBorder(Border.NO_BORDER)
         );
 
-        // add third table
-        float[] itemInfoColWidth = {180, 180, 180};
+        // add second table
+        float[] itemInfoColWidth = {180f, 180f, 180f};
         Table itemInfoTable = new Table(itemInfoColWidth);
 
-        itemInfoTable.addCell(new Cell().add("Full name"));
+        itemInfoTable.addCell(new Cell().add("Name"));
         itemInfoTable.addCell(new Cell().add("Activity"));
         itemInfoTable.addCell(new Cell().add("Time (in min)"));
 
-        reportDTO.getTeamReports().forEach(
-                tr ->
-                {
-                    itemInfoTable.addCell(new Cell().add(tr.getTeamName()));
+        List<TeamReportDTO> teams = reportDTO.getTeamReports();
+        teams.forEach(
+                tr -> {
                     tr.getUserReports().forEach(ur -> {
                         itemInfoTable.addCell(new Cell().add(ur.getFullName()));
-                        ur.getTasks().forEach(t -> {
-                            t.getDescription();
-                            t.getTimeInMinutes();
-                        });
-                    });
+                        for (int i = 0; i < ur.getTasks().size(); i++) {
+                            itemInfoTable.addCell(new Cell().add(ur.getTasks().get(i).getDescription()));
+                            itemInfoTable.addCell(new Cell().add(String.valueOf(ur.getTasks().get(i).getTimeInMinutes())));
 
+                            if (i != ur.getTasks().size() - 1) {
+                                itemInfoTable.addCell(new Cell().add(""));
+                            }
+                        }
+
+                    });
                 }
         );
 
-//        itemInfoTable.addCell(new Cell().add("Oleg"));
-//        itemInfoTable.addCell(new Cell().add("Learn about Spring MVC"));
-//        itemInfoTable.addCell(new Cell().add("200"));
-//
-//        itemInfoTable.addCell(new Cell().add("Anna"));
-//        itemInfoTable.addCell(new Cell().add("Hibernate cache"));
-//        itemInfoTable.addCell(new Cell().add("150"));
-
-
         document.add(table);
-
         // add gap between tables
         document.add(new Paragraph("\n\n"));
-
         document.add(itemInfoTable);
 
         document.close();
         System.out.println("pdf file created");
-    }
 
-//    private void addRows(PdfPTable table) {
-//        table.addCell("Oleg");
-//        table.addCell("Read about Spring-MVC");
-//        table.addCell("90");
-//    }
+        return document;
+    }
 
 }
