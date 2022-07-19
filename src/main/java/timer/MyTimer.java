@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MyTimer {
 
     public void timeTracker() {
-        LocalTime localTime = LocalTime.of(19, 40);
+        LocalTime localTime = LocalTime.of(20, 27);
         LocalDateTime sendingTime = LocalDateTime.of(LocalDate.now(), localTime);
         Date date = Date.from(sendingTime.atZone(ZoneId.systemDefault()).toInstant());
         System.out.print(sendingTime);
@@ -30,7 +30,7 @@ public class MyTimer {
             public void run() {
                 sendReportToRouter();
             }
-        }, date, TimeUnit.SECONDS.toMillis(10));
+        }, date, TimeUnit.HOURS.toMillis(24));
     }
 
     public void sendReportToRouter() {
@@ -39,7 +39,7 @@ public class MyTimer {
 
         byte[] bytes = new byte[0];
         try {
-            bytes = Files.readAllBytes(Paths.get("/home/ramz/Documents/report.pdf"));
+            bytes = Files.readAllBytes(Paths.get("C:\\Users\\ramzk\\Documents\\report.pdf"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

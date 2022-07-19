@@ -34,7 +34,7 @@ public class MyPdfFile {
         ConnectDemo connect = new ConnectDemo();
         reportDTO = connect.getReportDTO();
 
-        String path = "/home/ramz/Documents/report.pdf";
+        String path = "C:\\Users\\ramzk\\Documents\\report.pdf";
         PdfWriter pdfWriter = null;
         try {
             pdfWriter = new PdfWriter(path);

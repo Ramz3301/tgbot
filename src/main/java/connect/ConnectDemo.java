@@ -15,7 +15,8 @@ public class ConnectDemo {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
-                .uri(URI.create("https://4c8f-5-101-22-143.eu.ngrok.io/accountant/reports"))
+//                .uri(URI.create("https://4c8f-5-101-22-143.eu.ngrok.io/accountant/reports"))
+                .uri(URI.create("https://c54a-84-18-99-236.eu.ngrok.io/accountant/reports"))
                 .headers("Accept-Enconding", "gzip, deflate")
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

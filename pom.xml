@@ -76,7 +76,7 @@
                 <version>2.3.2</version>
                 <configuration>
                     <wsdlUrls>
-                        <wsdlUrl>https://df51-176-32-190-26.eu.ngrok.io/?wsdl</wsdlUrl>
+                        <wsdlUrl> https://9253-5-18-145-48.eu.ngrok.io/?wsdl</wsdlUrl>
                     </wsdlUrls>
                     <keep>true</keep>
                     <packageName>soap</packageName>
