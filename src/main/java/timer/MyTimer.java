@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MyTimer {
 
     public void timeTracker() {
-        LocalTime localTime = LocalTime.of(19, 40);
+        LocalTime localTime = LocalTime.of(20, 10);
         LocalDateTime sendingTime = LocalDateTime.of(LocalDate.now(), localTime);
         Date date = Date.from(sendingTime.atZone(ZoneId.systemDefault()).toInstant());
         System.out.print(sendingTime);
@@ -30,12 +30,12 @@ public class MyTimer {
             public void run() {
                 sendReportToRouter();
             }
-        }, date, TimeUnit.SECONDS.toMillis(10));
+        }, date, TimeUnit.HOURS.toMillis(24));
     }
 
     public void sendReportToRouter() {
         MyPdfFile pdfFile = new MyPdfFile();
-        pdfFile.createPdf();
+        pdfFile.createFile();
 
         byte[] bytes = new byte[0];
         try {

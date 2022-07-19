@@ -11,11 +11,18 @@ import java.net.http.HttpResponse;
 
 public class ConnectDemo {
 
+    /**
+     * get connect with other MS and get JSON body
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     private static String httpGetRequest() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
-                .uri(URI.create("https://4c8f-5-101-22-143.eu.ngrok.io/accountant/reports"))
+//                .uri(URI.create("https://4c8f-5-101-22-143.eu.ngrok.io/accountant/reports"))
+                .uri(URI.create("https://c54a-84-18-99-236.eu.ngrok.io/accountant/reports"))
                 .headers("Accept-Enconding", "gzip, deflate")
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -28,6 +35,11 @@ public class ConnectDemo {
         return responseBody;
     }
 
+
+    /**
+     * get Report from accountant and parse it to DTO
+     * @return
+     */
     public ReportDTO getReportDTO() {
         String responseBody;
         try {

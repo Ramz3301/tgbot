@@ -1,11 +1,12 @@
 package file;
 
-import java.io.File;
-
+/**
+ * Interface for create file
+ */
 public interface CreateFile {
 
     /**
      * Create file
      */
-    File createFile();
+    void createFile();
 }
