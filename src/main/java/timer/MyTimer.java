@@ -35,7 +35,7 @@ public class MyTimer {
 
     public void sendReportToRouter() {
         MyPdfFile pdfFile = new MyPdfFile();
-        pdfFile.createPdf();
+        pdfFile.createFile();
 
         byte[] bytes = new byte[0];
         try {

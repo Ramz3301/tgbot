@@ -11,6 +11,12 @@ import java.net.http.HttpResponse;
 
 public class ConnectDemo {
 
+    /**
+     * get connect with other MS and get JSON body
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     private static String httpGetRequest() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -29,6 +35,11 @@ public class ConnectDemo {
         return responseBody;
     }
 
+
+    /**
+     * get Report from accountant and parse it to DTO
+     * @return
+     */
     public ReportDTO getReportDTO() {
         String responseBody;
         try {
