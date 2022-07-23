@@ -37,7 +37,7 @@ public class MyTimer {
         MyPdfFile pdfFile = new MyPdfFile();
         pdfFile.createFile();
 
-        byte[] bytes = new byte[0];
+        byte[] bytes;
         try {
             bytes = Files.readAllBytes(Paths.get("C:\\Users\\ramzk\\Documents\\report.pdf"));
         } catch (IOException e) {

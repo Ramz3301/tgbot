@@ -2,6 +2,7 @@ package connect;
 
 import com.google.gson.Gson;
 import dto.ReportDTO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Slf4j
 public class ConnectDemo {
 
     /**
@@ -30,8 +32,8 @@ public class ConnectDemo {
         String responseBody = response.body();
         int responseStatusCode = response.statusCode();
 
-        System.out.println("httpGetRequest: " + responseBody);
-        System.out.println("httpGetRequest status code: " + responseStatusCode);
+        log.info("httpGetRequest: " + responseBody);
+        log.info("httpGetRequest status code: " + responseStatusCode);
         return responseBody;
     }
 

@@ -17,7 +17,7 @@ import jakarta.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "RouterServiceImplService", targetNamespace = "http://router/", wsdlLocation = "https://9253-5-18-145-48.eu.ngrok.io/?wsdl")
+@WebServiceClient(name = "RouterServiceImplService", targetNamespace = "http://router/", wsdlLocation = "https://8119-5-18-145-48.eu.ngrok.io/?wsdl")
 public class RouterServiceImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class RouterServiceImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("https://9253-5-18-145-48.eu.ngrok.io/?wsdl");
+            url = new URL("https://8119-5-18-145-48.eu.ngrok.io/?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

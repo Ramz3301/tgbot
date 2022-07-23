@@ -30,30 +30,32 @@ import java.util.List;
 public class MyPdfFile implements MyFile {
 
     private ReportDTO reportDTO;
+    private PdfWriter pdfWriter;
 
     /**
      * Create pdf file for report
      */
     public void createFile() {
+        log.info("createFile()");
         ConnectDemo connect = new ConnectDemo();
         reportDTO = connect.getReportDTO();
 
         String path = "C:\\Users\\ramzk\\Documents\\report.pdf";
-        PdfWriter pdfWriter = null;
+//        PdfWriter pdfWriter;
         try {
             pdfWriter = new PdfWriter(path);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+            log.error("File not found");
         }
+
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
         pdfDocument.setDefaultPageSize(PageSize.A4);
 
         //280px for column in file
-        float col = 280f;
-        float[] columnWidth = {col, col};
-        Table table = new Table(columnWidth);
-        table.setBackgroundColor(new DeviceRgb(63, 169, 219)).setFontColor(Color.WHITE);
+        Table table = addTableWidth();
 
         // add header
         createTableHeader(table);
@@ -65,6 +67,30 @@ public class MyPdfFile implements MyFile {
         List<TeamReportDTO> teams = reportDTO.getTeamReports();
 
         //get all information from report about team and users
+        getReportsFromJson(itemInfoTable, teams);
+
+        document.add(table);
+        // add gap between tables
+        document.add(new Paragraph("\n\n"));
+
+        String teamName = reportDTO.getTeamReports().get(0).getTeamName();
+        Paragraph paragraph = getParagraph(teamName);
+
+        document.add(paragraph);
+        document.add(itemInfoTable);
+        document.close();
+        log.info("pdf file created");
+    }
+
+    private Table addTableWidth() {
+        float col = 280f;
+        float[] columnWidth = {col, col};
+        Table table = new Table(columnWidth);
+        table.setBackgroundColor(new DeviceRgb(63, 169, 219)).setFontColor(Color.WHITE);
+        return table;
+    }
+
+    private void getReportsFromJson(Table itemInfoTable, List<TeamReportDTO> teams) {
         teams.forEach(
                 tr -> {
                     tr.getUserReports().forEach(ur -> {
@@ -81,23 +107,13 @@ public class MyPdfFile implements MyFile {
                     });
                 }
         );
+    }
 
-        String teamName = reportDTO.getTeamReports().get(0).getTeamName();
-
-        document.add(table);
-        // add gap between tables
-
-        document.add(new Paragraph("\n\n"));
+    private Paragraph getParagraph(String teamName) {
         Paragraph paragraph = new Paragraph("TEAM " + teamName)
-//                .setFontColor(new DeviceRgb(63, 169, 219))
                 .setFontColor(Color.BLACK)
                 .setMargins(0, 0, 0 , 230);
-        document.add(paragraph);
-//        document.add(new Paragraph("\n"));
-        document.add(itemInfoTable);
-
-        document.close();
-        System.out.println("pdf file created");
+        return paragraph;
     }
 
     private Table addTableColumns() {
@@ -112,7 +128,9 @@ public class MyPdfFile implements MyFile {
 
     private void createTableHeader(Table table) {
         table.addCell(new Cell().add("Report on " + LocalDate.now()
-                        .format(DateTimeFormatter.ofPattern("MMMM d")))
+//                        .format(DateTimeFormatter.ofPattern("MMMM d")))
+//                        .format(DateTimeFormatter.ofPattern("yyyy MMM dd")))
+                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
                 .setTextAlignment(TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setMarginTop(30f)
